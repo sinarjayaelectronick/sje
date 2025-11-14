@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT SJE Sinar Jaya Electronick</title>
+    
+    <style>
+        /* --- Pengaturan CSS Umum (dari semua file digabung) --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4; /* Latar utama, seperti index.html */
+            color: #333;
+            scroll-behavior: smooth; /* Untuk scroll yang halus saat klik anchor link */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px; /* Lebar container lebih besar untuk hero */
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigasi */
+        header {
+            background: #ffffff;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004a99;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #0056b3;
+        }
+
+        /* Class untuk menandai link aktif (diatur via JS untuk halaman aktif) */
+        nav a.active {
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+
+        .btn-cta {
+            background-color: #0056b3;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        nav .btn-cta {
+            margin-left: 20px;
+        }
+
+        .btn-cta:hover {
+            background-color: #004a99;
+        }
+
+        /* Pengaturan Section Umum */
+        section {
+            padding: 80px 0; /* Padding lebih besar antar section */
+            margin-bottom: 0; /* Karena ini satu file, margin antar section tidak perlu */
+            position: relative; /* Untuk scrollspy */
+        }
+        
+        section:nth-of-type(odd) { /* Latar belakang bergantian */
+            background-color: #ffffff;
+        }
+        section:nth-of-type(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* Beberapa section spesifik diberi background sendiri */
+        #hero, #final-cta, #visi-misi, #technology-desc, .how-to-apply {
+            background-color: unset; /* Reset dulu */
+        }
+        #visi-misi, #technology-desc, .how-to-apply {
+            background-color: #e6f0ff; /* Latar biru muda */
+        }
+
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #004a99;
+        }
+
+        /* --- CSS Spesifik per Bagian Halaman (digabungkan) --- */
+
+        /* Hero Section */
+        #hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/sje.png');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            padding: 150px 0; /* Padding lebih besar */
+            text-align: center;
+        }
+
+        #hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        #hero p {
+            font-size: 1.35rem;
+            margin-bottom: 30px;
+        }
+
+        #hero .btn-cta {
+            font-size: 1.1rem;
+            padding: 15px 30px;
+            margin: 0 15px;
+        }
+        #hero .btn-cta:last-of-type {
+            background-color: #f4f4f4; 
+            color: #333;
+        }
+        #hero .btn-cta:last-of-type:hover {
+            background-color: #e0e0e0;
+        }
+
+
+        /* About - Pengantar Singkat */
+        #about-intro {
+            padding: 60px 0;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        #about-intro p {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: auto;
+        }
+
+
+        /* Services - Layanan Utama (grid di homepage) */
+        #home-services .service-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            width: 30%;
+            min-width: 280px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: #0056b3;
+        }
+
+
+        /* Why Us - Visi & Mengapa Memilih Kami */
+        #why-us .content-split {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        #why-us .text-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        #why-us .image-content {
+            flex: 1;
+            background: url('images/pt1.png'); /* Placeholder */
+            background-size: cover;
+            min-height: 350px;
+            border-radius: 8px;
+        }
+        
+        .certification {
+            background: #e6f0ff;
+            border-left: 5px solid #0056b3;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+
+        /* Testimoni / Klien */
+        #testimonials {
+            text-align: center;
+            background-color: #ffffff; /* Override default even section background */
+        }
+        #testimonials .client-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        #testimonials .client-logos img {
+            max-height: 80px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        #testimonials .client-logos img:hover {
+            opacity: 1;
+        }
+
+
+        /* FAQ Singkat (dari homepage) */
+        #home-faq .faq-item-short {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #home-faq .faq-item-short strong {
+            color: #0056b3;
+        }
+
+
+        /* Final CTA */
+        #final-cta {
+            background-color: #0056b3;
+            color: #ffffff;
+            text-align: center;
+            padding: 80px 0;
+        }
+        #final-cta h2 {
+            color: #ffffff;
+        }
+        #final-cta .btn-cta {
+            background-color: #ffffff;
+            color: #0056b3;
+            font-size: 1.2rem;
+            padding: 15px 35px;
+        }
+
+        /* ----- CSS untuk Halaman "Tentang Kami" ----- */
+        .page-header-img {
+    background-color: black; /* atau #000000 */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */ /* Opsional, jika ingin tetap ada sedikit gradasi gelap */
+    /* background-size: cover; */ /* tidak relevan */
+    /* background-position: center; */ /* tidak relevan */
+    color: #ffffff;
+    padding: 80px 0;
+    text-align: center;
+}
+        .page-header-img h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+        
+        #about-full {
+            background-color: #ffffff;
+        }
+
+        /* Visi & Misi */
+        #visi-misi {
+            background-color: #e6f0ff; /* Latar biru muda */
+        }
+        
+        .visi-misi-grid {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .visi-misi-card {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .visi-misi-card h3 {
+            font-size: 1.8rem;
+            color: #0056b3;
+            border-bottom: 3px solid #0056b3;
+            padding-bottom: 10px;
+        }
+        
+        .visi-misi-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .visi-misi-card li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .visi-misi-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #0056b3;
+            font-weight: bold;
+        }
+
+        /* Sejarah */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #0056b3;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid #0056b3;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-left { left: 0; }
+        .timeline-right { left: 50%; }
+        
+        .timeline-left::before {
+            content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px;
+            border: medium solid white; border-width: 10px 0 10px 10px; border-color: transparent transparent transparent white;
+        }
+        .timeline-right::before {
+            content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px;
+            border: medium solid white; border-width: 10px 10px 10px 0; border-color: transparent white transparent transparent;
+        }
+        
+        .timeline-right::after { left: -10px; }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        
+        .timeline-content h4 {
+            margin-top: 0; font-size: 1.5rem; color: #004a99;
+        }
+
+        /* Tim Manajemen */
+        #team {
+            background-color: #f9f9f9;
+        }
+        .team-grid {
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+        }
+        .team-card {
+            background: #ffffff; border: 1px solid #ddd; border-radius: 8px; width: 280px;
+            text-align: center; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .team-card h4 {
+            font-size: 1.3rem; color: #004a99; margin-bottom: 5px;
+        }
+        .team-card .title {
+            font-weight: bold; color: #555; margin-top: 0;
+        }
+
+
+        /* ----- CSS untuk Halaman "Layanan" ----- */
+        #services-full {
+            background-color: #ffffff;
+        }
+        #services-full .page-header-img {
+    background-color: black; /* atau #000000 */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */ /* Opsional, jika ingin tetap ada sedikit gradasi gelap */
+    /* background-size: cover; */ /* tidak relevan */
+    /* background-position: center; */ /* tidak relevan */
+    color: #ffffff;
+    padding: 80px 0;
+    text-align: center;
+}
+        
+        .service-detail-item {
+            display: flex; align-items: flex-start; gap: 30px; margin-bottom: 50px; flex-wrap: wrap;
+            background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .service-detail-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .service-image { flex: 1; min-width: 300px; }
+        .service-image img {
+            max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .service-text { flex: 2; }
+        .service-text h3 { font-size: 2rem; color: #0056b3; margin-top: 0; }
+        .service-text ul { list-style: none; padding-left: 0; }
+        .service-text li { position: relative; padding-left: 25px; margin-bottom: 10px; }
+        .service-text li::before {
+            content: '•'; position: absolute; left: 0; top: 0; color: #0056b3; font-weight: bold; font-size: 1.2em; line-height: 1;
+        }
+
+
+        /* ----- CSS untuk Halaman "Fasilitas" ----- */
+        #facilities-full {
+            background-color: #f9f9f9;
+        }
+        #facilities-full .page-header-img {
+    background-color: black; /* atau #000000 */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */ /* Opsional, jika ingin tetap ada sedikit gradasi gelap */
+    /* background-size: cover; */ /* tidak relevan */
+    /* background-position: center; */ /* tidak relevan */
+    color: #ffffff;
+    padding: 80px 0;
+    text-align: center;
+}
+
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
+        }
+        .gallery-item {
+            background: #f0f0f0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative;
+        }
+        .gallery-item img {
+            width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.3s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item .caption {
+            padding: 15px; font-weight: bold; color: #0056b3; text-align: center;
+        }
+        
+        #technology-desc {
+            background-color: #e6f0ff; /* Latar biru muda */
+            text-align: center;
+        }
+        #technology-desc p { max-width: 800px; margin: auto; font-size: 1.1rem; }
+
+
+        /* ----- CSS untuk Halaman "Karier" ----- */
+        #careers-full {
+            background-color: #ffffff;
+        }
+        #careers-full .page-header-img {
+    background-color: black; /* atau #000000 */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */ /* Opsional, jika ingin tetap ada sedikit gradasi gelap */
+    /* background-size: cover; */ /* tidak relevan */
+    /* background-position: center; */ /* tidak relevan */
+    color: #ffffff;
+    padding: 80px 0;
+    text-align: center;
+}
+
+        .job-card {
+            background: #ffffff; border: 1px solid #dadce0; border-radius: 8px; padding: 24px;
+            margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: box-shadow 0.3s ease;
+        }
+        .job-card:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+        .job-card h3 {
+            margin-top: 0; margin-bottom: 10px; font-size: 1.6rem; color: #0056b3;
+        }
+        .job-card .location {
+            font-weight: bold; color: #444; margin-bottom: 15px;
+        }
+        .job-card .description {
+            color: #333; margin-bottom: 20px;
+        }
+        .btn-apply {
+            display: inline-block; background-color: #0056b3; color: #ffffff; padding: 10px 20px;
+            text-decoration: none; border-radius: 5px; font-weight: bold; transition: background-color 0.3s ease;
+        }
+        .btn-apply:hover { background-color: #004a99; }
+        
+        .how-to-apply {
+            background: #e6f0ff; /* Latar biru muda */
+            padding: 30px; border-radius: 8px; text-align: center; margin-top: 40px;
+        }
+        .how-to-apply h2 { margin-top: 0; color: #004a99; }
+
+
+        /* ----- CSS untuk Halaman "Kontak" ----- */
+        #contact-full {
+            background-color: #ffffff;
+        }
+        #contact-full .page-header-img {
+    background-color: black; /* atau #000000 */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */ /* Opsional, jika ingin tetap ada sedikit gradasi gelap */
+    /* background-size: cover; */ /* tidak relevan */
+    /* background-position: center; */ /* tidak relevan */
+    color: #ffffff;
+    padding: 80px 0;
+    text-align: center;
+}
+
+        .contact-grid {
+            display: flex; gap: 40px; flex-wrap: wrap;
+        }
+        .contact-info, .contact-form { flex: 1; min-width: 300px; }
+        .contact-info p { margin-bottom: 15px; font-size: 1.1rem; }
+        .contact-info strong { color: #0056b3; }
+        .contact-info .icon-text {
+            display: flex; align-items: center; margin-bottom: 15px; font-size: 1.1rem;
+        }
+        .contact-info .icon-text img { width: 24px; height: 24px; margin-right: 15px; }
+        
+        .contact-form form { display: flex; flex-direction: column; gap: 15px; }
+        .contact-form label { font-weight: bold; color: #444; }
+        .contact-form input[type="text"], input[type="email"], textarea {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;
+            font-size: 1rem; box-sizing: border-box;
+        }
+        .contact-form textarea { resize: vertical; min-height: 120px; }
+        .contact-form button {
+            background-color: #0056b3; color: #ffffff; padding: 12px 25px; border: none;
+            border-radius: 5px; cursor: pointer; font-size: 1.1rem; font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button:hover { background-color: #004a99; }
+        
+        #location-map {
+            padding: 0; margin-bottom: 0; box-shadow: none;
+            background-color: #f9f9f9; /* Pastikan background sesuai section */
+        }
+        #location-map h2 { margin-bottom: 20px; padding-top: 50px; }
+        .map-container {
+            width: 100%; height: 450px; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+
+        /* ----- CSS untuk Halaman "FAQ" ----- */
+        #faq-full {
+            background-color: #f9f9f9;
+        }
+        #faq-full .page-header-img {
+    background-color: black; /* atau #000000 */
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */ /* Opsional, jika ingin tetap ada sedikit gradasi gelap */
+    /* background-size: cover; */ /* tidak relevan */
+    /* background-position: center; */ /* tidak relevan */
+    color: #ffffff;
+    padding: 80px 0;
+    text-align: center;
+}
+        
+        .accordion-item {
+            border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;
+            overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            max-width: 800px; margin-left: auto; margin-right: auto;
+        }
+        .accordion-header {
+            background-color: #f0f0f0; padding: 18px 25px; cursor: pointer; display: flex;
+            justify-content: space-between; align-items: center; font-weight: bold;
+            color: #0056b3; font-size: 1.15rem; transition: background-color 0.3s ease;
+        }
+        .accordion-header:hover { background-color: #e0e0e0; }
+        .accordion-header .icon { font-size: 1.5rem; transition: transform 0.3s ease; }
+        .accordion-content {
+            padding: 0 25px; max-height: 0; overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out; background-color: #ffffff;
+        }
+        .accordion-content p { padding-bottom: 18px; margin: 0; color: #555; }
+        
+        .accordion-item.active .accordion-header { background-color: #e0e0e0; }
+        .accordion-item.active .accordion-header .icon { transform: rotate(180deg); }
+        .accordion-item.active .accordion-content { max-height: 200px; padding-top: 10px; padding-bottom: 18px; } /* Max height bisa disesuaikan */
+
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #ffffff;
+            padding: 40px 0 20px 0;
+            margin-top: 0; /* Pastikan tidak ada margin atas */
+        }
+
+        .footer-grid {
+            display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap;
+        }
+        .footer-col { flex: 1; min-width: 200px; }
+        .footer-col h4 { color: #e6f0ff; margin-bottom: 15px; }
+        .footer-col p, .footer-col a { color: #ccc; text-decoration: none; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-bottom {
+            text-align: center; margin-top: 30px; padding-top: 20px;
+            border-top: 1px solid #555; font-size: 0.9rem; color: #aaa;
+        }
+
+        /* --- Responsifitas Dasar --- */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav ul {
+                margin-top: 15px;
+            }
+            nav li {
+                margin: 0 10px;
+            }
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+            #hero p {
+                font-size: 1.1rem;
+            }
+            #hero .btn-cta {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+            .service-card {
+                width: 90%;
+            }
+            #why-us .content-split, .contact-grid, .visi-misi-grid {
+                flex-direction: column;
+            }
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            .timeline-left::after, .timeline-right::after {
+                left: 15px;
+            }
+            .timeline-right {
+                left: 0%;
+            }
+            .service-detail-item:nth-child(even) {
+                flex-direction: column; /* Ubah kembali ke kolom */
+            }
+            .service-detail-item .service-image {
+                min-width: unset;
+                width: 100%;
+            }
+            .service-detail-item .service-text {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+  
+  <header>
+        <div class="container">
+            <a href="#hero" class="logo">PT SJE</a>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Beranda</a></li>
+                    <li><a href="#about-full">Tentang Kami</a></li>
+                    <li><a href="#services-full">Layanan</a></li>
+                    <li><a href="#facilities-full">Fasilitas</a></li>
+                    <li><a href="#careers-full">Karier</a></li>
+                    <li><a href="#contact-full">Kontak</a></li>
+                    <li><a href="#faq-full">FAQ</a></li>
+                    <li><a href="#contact-full" class="btn-cta">Minta Penawaran (RFQ)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+      <section id="hero">
+            <div class="container">
+                <h1>PT SJE Sinar Jaya Electronick</h1>
+                <p>Presisi, Kualitas, dan Inovasi Sejak 1998. Kami hadir untuk mewujudkan produk elektronik Anda dengan standar global.</p>
+                <a href="#services-full" class="btn-cta">Lihat Layanan Kami</a>
+                <a href="#contact-full" class="btn-cta">Hubungi Tim Sales</a>
+            </div>
+        </section>
+
+        <section id="about-intro">
+            <div class="container">
+                <h2>Selamat Datang di SJE Sinar Jaya Electronick</h2>
+                <p>
+                    PT SJE Sinar Jaya Electronick adalah perusahaan manufaktur elektronik (EMS) terkemuka di Indonesia yang berspesialisasi dalam menyediakan solusi manufaktur end-to-end berkualitas tinggi. Didukung oleh fasilitas produksi modern dan tim profesional, kami berdedikasi untuk melayani berbagai sektor industri, termasuk telekomunikasi, otomotif, dan consumer electronics.
+                </p>
+            </div>
+        </section>
+
+        <section id="home-services">
+            <div class="container">
+                <h2>Solusi Manufaktur Komprehensif</h2>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <h3>Perakitan PCB (SMT & THT)</h3>
+                        <p>Lini perakitan otomatis berkecepatan tinggi untuk SMT dan perakitan THT yang presisi.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Perakitan Produk Jadi (Box Build)</h3>
+                        <p>Layanan integrasi penuh mulai dari PCB, enclosure (casing), instalasi kabel, hingga pengemasan.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Pengujian & Kontrol Kualitas</h3>
+                        <p>Pengujian fungsional, ICT, AOI, dan X-ray untuk memastikan kualitas produk tertinggi.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Pengembangan & Prototipe</h3>
+                        <p>Dukungan teknis dari desain awal hingga produksi massal, termasuk pembuatan prototipe cepat.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Manajemen Rantai Pasokan</h3>
+                        <p>Pengadaan komponen global yang efisien dan hemat biaya dengan jaringan pemasok yang luas.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Logistik & Pengiriman</h3>
+                        <p>Solusi logistik terintegrasi untuk pengiriman produk Anda tepat waktu dan aman.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-us">
+            <div class="container">
+                <h2>Mengapa Memilih PT SJE Sinar Jaya Electronick?</h2>
+                <div class="content-split">
+                    <div class="text-content">
+                        <p>Dengan pengalaman lebih dari dua dekade, PT SJE Sinar Jaya Electronick telah menjadi pilihan utama bagi klien yang mencari keunggulan dalam manufaktur elektronik. Komitmen kami terhadap kualitas, inovasi, dan kepuasan pelanggan tidak tertandingi.</p>
+                        <ul>
+                            <li><strong>Pengalaman Teruji:</strong> Lebih dari 25 tahun di industri EMS.</li>
+                            <li><strong>Teknologi Modern:</strong> Fasilitas dan peralatan produksi terkini.</li>
+                            <li><strong>Tim Ahli:</strong> Insinyur dan teknisi yang sangat berpengalaman.</li>
+                            <li><strong>Kualitas Bersertifikat:</strong> Mematuhi standar kualitas internasional.</li>
+                            <li><strong>Solusi Fleksibel:</strong> Mampu menangani volume produksi rendah hingga tinggi.</li>
+                            <li><strong>Kepuasan Klien:</strong> Fokus pada kemitraan jangka panjang dan kesuksesan bersama.</li>
+                        </ul>
+                        <div class="certification">
+                            <p><strong>Bersertifikasi ISO 9001:2015</strong> untuk Sistem Manajemen Mutu.</p>
+                        </div>
+                    </div>
+                    <div class="image-content">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="home-faq">
+            <div class="container">
+                <h2>Pertanyaan Sering Diajukan</h2>
+                <div class="faq-item-short">
+                    <strong>Apa saja layanan utama PT SJE?</strong>
+                    <p>Kami menyediakan perakitan PCB (SMT & THT), perakitan produk jadi (box build), pengujian, pengembangan prototipe, dan manajemen rantai pasokan.</p>
+                </div>
+                <div class="faq-item-short">
+                    <strong>Industri apa saja yang Anda layani?</strong>
+                    <p>Kami melayani berbagai industri termasuk telekomunikasi, otomotif, peralatan medis, consumer electronics, dan industri.</p>
+                </div>
+                <div class="faq-item-short">
+                    <strong>Bagaimana saya bisa mendapatkan penawaran?</strong>
+                    <p>Anda bisa menghubungi tim penjualan kami melalui halaman Kontak atau mengisi formulir RFQ online kami.</p>
+                </div>
+                <p style="text-align: center; margin-top: 30px;">
+                    <a href="#faq-full" class="btn-cta">Lihat Semua FAQ</a>
+                </p>
+            </div>
+        </section>
+
+        <section id="final-cta">
+            <div class="container">
+                <h2>Siap Memulai Proyek Elektronik Anda?</h2>
+                <p>Mari diskusikan kebutuhan Anda dan temukan bagaimana PT SJE dapat menjadi mitra manufaktur terbaik Anda.</p>
+                <a href="#contact-full" class="btn-cta">Minta Penawaran Sekarang</a>
+            </div>
+        </section>
+        <section id="about-full">
+            <div class="page-header-img">
+                <div class="container">
+                    <h1>Tentang Kami</h1>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+                <p style="font-size: 1.15rem; text-align: center; max-width: 900px; margin: auto;">
+                    PT SJE Sinar Jaya Electronick, didirikan pada tahun 1998, telah tumbuh menjadi salah satu penyedia solusi manufaktur elektronik (EMS) terkemuka di Indonesia. Dengan komitmen kuat terhadap inovasi, kualitas, dan kepuasan pelanggan, kami menyediakan layanan manufaktur elektronik ujung ke ujung untuk berbagai industri.
+                    Fasilitas kami dilengkapi dengan teknologi terkini dan dioperasikan oleh tim insinyur dan teknisi yang sangat terampil, memastikan setiap produk memenuhi standar kualitas internasional tertinggi.
+                </p>
+            </div>
+        </section>
+
+        <section id="visi-misi">
+            <div class="container">
+                <h2>Visi & Misi Kami</h2>
+                <div class="visi-misi-grid">
+                    <div class="visi-misi-card">
+                        <h3>Visi</h3>
+                        <p>Menjadi pemimpin yang diakui secara global dalam industri manufaktur elektronik (EMS), memberikan solusi inovatif dan berkualitas tinggi yang melampaui ekspektasi pelanggan, sambil mendorong keberlanjutan dan pertumbuhan yang bertanggung jawab.</p>
+                    </div>
+                    <div class="visi-misi-card">
+                        <h3>Misi</h3>
+                        <ul>
+                            <li>Menyediakan layanan manufaktur elektronik yang komprehensif, mulai dari desain hingga produksi massal, dengan fokus pada presisi dan keandalan.</li>
+                            <li>Mengembangkan dan mempertahankan hubungan jangka panjang dengan pelanggan melalui kolaborasi, transparansi, dan komitmen terhadap kesuksesan bersama.</li>
+                            <li>Berinvestasi dalam teknologi mutakhir dan pelatihan berkelanjutan untuk memastikan kemampuan produksi kami tetap terdepan dalam industri.</li>
+                            <li>Membangun budaya kerja yang mendorong inovasi, efisiensi, dan pengembangan profesional bagi seluruh karyawan.</li>
+                            <li>Menerapkan praktik bisnis yang etis dan bertanggung jawab terhadap lingkungan dan masyarakat.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="history">
+            <div class="container">
+                <h2>Sejarah Kami</h2>
+                <div class="timeline">
+                    <div class="timeline-item timeline-left">
+                        <div class="timeline-content">
+                            <h4>1998 - Pendirian Perusahaan</h4>
+                            <p>PT Sinar Jaya Electronick didirikan di Jakarta, fokus pada perakitan PCB THT skala kecil hingga menengah.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-right">
+                        <div class="timeline-content">
+                            <h4>2005 - Ekspansi Awal</h4>
+                            <p>Memperkenalkan lini Surface Mount Technology (SMT) pertama untuk memenuhi permintaan pasar yang berkembang.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-left">
+                        <div class="timeline-content">
+                            <h4>2010 - Sertifikasi ISO</h4>
+                            <p>Mendapatkan sertifikasi ISO 9001, menegaskan komitmen terhadap standar kualitas internasional.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-right">
+                        <div class="timeline-content">
+                            <h4>2015 - Peningkatan Kapasitas</h4>
+                            <p>Investasi besar dalam mesin SMT berkecepatan tinggi dan otomatisasi lini produksi.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-left">
+                        <div class="timeline-content">
+                            <h4>2020 - Diversifikasi Industri</h4>
+                            <p>Memperluas jangkauan layanan ke sektor otomotif dan peralatan medis, selain telekomunikasi dan consumer electronics.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item timeline-right">
+                        <div class="timeline-content">
+                            <h4>Sekarang - Inovasi Berkelanjutan</h4>
+                            <p>Terus berinovasi dan berinvestasi dalam teknologi terbaru untuk tetap menjadi mitra manufaktur elektronik terpercaya.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <div class="container">
+                <h2>Tim Manajemen Kami</h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <h4>Budi Santoso</h4>
+                        <p class="title">Direktur Utama</p>
+                        <p>Dengan pengalaman lebih dari 25 tahun, beliau memimpin SJE menuju inovasi dan keunggulan.</p>
+                    </div>
+                    <div class="team-card">
+                        <h4>Siti Aminah</h4>
+                        <p class="title">Direktur Operasional</p>
+                        <p>Bertanggung jawab atas efisiensi dan kualitas seluruh proses produksi.</p>
+                    </div>
+                    <div class="team-card">
+                        <h4>David Wijaya</h4>
+                        <p class="title">Direktur Pemasaran</p>
+                        <p>Membangun kemitraan strategis dan memastikan kepuasan pelanggan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services-full">
+            <div class="page-header-img">
+                <div class="container">
+                    <h1>Layanan Kami</h1>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+                <p style="font-size: 1.15rem; text-align: center; max-width: 900px; margin: auto; margin-bottom: 80px;">
+                    PT SJE Sinar Jaya Electronick menawarkan rangkaian lengkap layanan manufaktur elektronik yang dirancang untuk mendukung proyek Anda dari konsep hingga produksi massal. Kami menggabungkan keahlian teknis dengan teknologi mutakhir untuk memberikan solusi yang efisien, andal, dan berkualitas tinggi.
+                </p>
+
+                <div class="service-detail-item">
+                    <div class="service-image">
+                        <img src="images/pcb.png" alt="Perakitan SMT">
+                    </div>
+                    <div class="service-text">
+                        <h3>Perakitan PCB (SMT & THT)</h3>
+                        <p>Kami memiliki kemampuan canggih untuk perakitan Printed Circuit Board (PCB) menggunakan teknologi Surface Mount Technology (SMT) dan Through-Hole Technology (THT).</p>
+                        <ul>
+                            <li>Lini SMT otomatis berkecepatan tinggi, mendukung fine-pitch dan BGA.</li>
+                            <li>Perakitan THT manual dan semi-otomatis untuk komponen khusus.</li>
+                            <li>Proses solder timbal (Lead-free) dan non-timbal (Leaded).</li>
+                            <li>Manajemen komponen yang ketat dan traceability penuh.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-detail-item">
+                    <div class="service-image">
+                        <img src="images/perakitanbox.png" alt="Box Build Assembly">
+                    </div>
+                    <div class="service-text">
+                        <h3>Perakitan Produk Jadi (Box Build)</h3>
+                        <p>Dari komponen individual hingga produk akhir yang siap dikirim, kami menangani seluruh proses perakitan box build Anda.</p>
+                        <ul>
+                            <li>Perakitan sub-sistem dan produk akhir.</li>
+                            <li>Instalasi kabel dan wire harness.</li>
+                            <li>Integrasi komponen mekanik dan elektro-mekanik.</li>
+                            <li>Pengemasan kustom dan pelabelan.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-detail-item">
+                    <div class="service-image">
+                        <img src="images/pengujian.png" alt="Quality Control">
+                    </div>
+                    <div class="service-text">
+                        <h3>Pengujian & Kontrol Kualitas</h3>
+                        <p>Kualitas adalah prioritas utama kami. Kami menerapkan prosedur pengujian yang ketat di setiap tahap produksi.</p>
+                        <ul>
+                            <li>Pengujian Fungsional (FCT) untuk memverifikasi kinerja produk.</li>
+                            <li>In-Circuit Test (ICT) untuk mendeteksi cacat pada PCB.</li>
+                            <li>Automated Optical Inspection (AOI) dan X-ray Inspection untuk SMT.</li>
+                            <li>Pengujian Lingkungan dan Burn-in Test.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-detail-item">
+                    <div class="service-image">
+                        <img src="images/pengembangan.png" alt="Prototyping">
+                    </div>
+                    <div class="service-text">
+                        <h3>Pengembangan & Prototipe</h3>
+                        <p>Kami mendukung Anda dari tahap awal pengembangan hingga prototipe dan validasi desain.</p>
+                        <ul>
+                            <li>Dukungan Desain untuk Manufaktur (DFM) dan Desain untuk Pengujian (DFT).</li>
+                            <li>Pembuatan prototipe cepat untuk validasi desain.</li>
+                            <li>Bantuan pemilihan komponen.</li>
+                            <li>Manajemen revisi dan optimasi desain.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-detail-item">
+                    <div class="service-image">
+                        <img src="images/manajemen.png" alt="Supply Chain">
+                    </div>
+                    <div class="service-text">
+                        <h3>Manajemen Rantai Pasokan</h3>
+                        <p>Jaringan pemasok global kami memastikan pengadaan komponen yang efisien dan hemat biaya.</p>
+                        <ul>
+                            <li>Pengadaan komponen global dan lokal.</li>
+                            <li>Manajemen inventaris dan konsolidasi komponen.</li>
+                            <li>Strategi mitigasi risiko rantai pasokan.</li>
+                            <li>Kemitraan dengan pemasok komponen terkemuka.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="facilities-full">
+            <div class="page-header-img">
+                <div class="container">
+                    <h1>Fasilitas Kami</h1>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+                <p style="font-size: 1.15rem; text-align: center; max-width: 900px; margin: auto; margin-bottom: 80px;">
+                    PT SJE Sinar Jaya Electronick bangga dengan fasilitas manufaktur modern dan canggih kami. Dirancang untuk efisiensi, presisi, dan fleksibilitas, pabrik kami dilengkapi dengan lini produksi otomatis, ruang bersih, dan area pengujian kualitas yang komprehensif untuk memenuhi tuntutan produksi elektronik terkini.
+                </p>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="images/line.png" alt="Lini Produksi SMT">
+                        <div class="caption">Lini Produksi SMT (Surface Mount Technology)</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/areaperakitan.png" alt="Area THT">
+                        <div class="caption">Area Perakitan THT (Through-Hole Technology)</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/mesin.png" alt="Pengujian AOI">
+                        <div class="caption">Mesin Automated Optical Inspection (AOI)</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/ruangbersih.png" alt="Ruang Bersih">
+                        <div class="caption">Ruang Bersih untuk Perakitan Sensitif</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/gudang.png" alt="Gudang Komponen">
+                        <div class="caption">Gudang Penyimpanan Komponen Otomatis</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/areabox.png" alt="Perakitan Box Build">
+                        <div class="caption">Area Perakitan Box Build</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="technology-desc">
+            <div class="container">
+                <h2>Teknologi Kami</h2>
+                <p>
+                    Kami terus berinvestasi pada teknologi terbaru untuk memastikan kami dapat menawarkan solusi manufaktur elektronik tercanggih kepada pelanggan kami. Mulai dari mesin pick-and-place berkecepatan tinggi, oven reflow multi-zona, hingga sistem pengujian otomatis yang presisi, semua dirancang untuk efisiensi, akurasi, dan keandalan.
+                </p>
+                <p>
+                    Komitmen kami terhadap inovasi juga mencakup penerapan otomatisasi dan robotika di berbagai tahap produksi, memungkinkan kami untuk memproduksi volume tinggi dengan konsistensi kualitas yang superior.
+                </p>
+            </div>
+        </section>
+
+        <section id="careers-full">
+            <div class="page-header-img">
+                <div class="container">
+                    <h1>Bergabunglah dengan Tim Kami</h1>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+                <p style="font-size: 1.15rem; text-align: center; max-width: 900px; margin: auto; margin-bottom: 80px;">
+                    PT SJE Sinar Jaya Electronick senantiasa mencari individu berbakat dan bersemangat untuk bergabung dengan tim kami. Kami menawarkan lingkungan kerja yang dinamis, peluang pengembangan karir yang luas, dan kesempatan untuk berkontribusi pada inovasi di industri manufaktur elektronik.
+                </p>
+
+                <h2>Lowongan Tersedia</h2>
+                <div class="job-card">
+                    <h3>Insinyur Produksi SMT</h3>
+                    <p class="location">Jakarta</p>
+                    <p class="description">
+                        Bertanggung jawab untuk mengawasi dan mengoptimalkan lini produksi Surface Mount Technology (SMT). Memastikan efisiensi, kualitas, dan pemeliharaan mesin SMT.
+                    </p>
+                    <a href="#contact-full" class="btn-apply">Lamar Sekarang</a>
+                </div>
+
+                <div class="job-card">
+                    <h3>Teknisi Kontrol Kualitas (QC)</h3>
+                    <p class="location">Jakarta</p>
+                    <p class="description">
+                        Melakukan inspeksi dan pengujian produk elektronik di berbagai tahapan produksi untuk memastikan kepatuhan terhadap standar kualitas yang ditetapkan.
+                    </p>
+                    <a href="#contact-full" class="btn-apply">Lamar Sekarang</a>
+                </div>
+
+                <div class="job-card">
+                    <h3>Spesialis Pengadaan Komponen</h3>
+                    <p class="location">Jakarta</p>
+                    <p class="description">
+                        Mengelola rantai pasokan komponen elektronik, bernegosiasi dengan vendor, dan memastikan ketersediaan material yang optimal untuk produksi.
+                    </p>
+                    <a href="#contact-full" class="btn-apply">Lamar Sekarang</a>
+                </div>
+
+                <div class="job-card">
+                    <h3>Manajer Proyek Elektronik</h3>
+                    <p class="location">Jakarta</p>
+                    <p class="description">
+                        Memimpin dan mengelola proyek manufaktur elektronik dari awal hingga akhir, memastikan proyek berjalan sesuai jadwal, anggaran, dan spesifikasi klien.
+                    </p>
+                    <a href="#contact-full" class="btn-apply">Lamar Sekarang</a>
+                </div>
+
+                <div class="how-to-apply">
+                    <h2>Cara Melamar</h2>
+                    <p>
+                        Jika Anda tertarik untuk menjadi bagian dari tim PT SJE Sinar Jaya Electronick, silakan kirimkan CV dan surat lamaran Anda ke:
+                        <br>
+                        <strong>WhatsApp 0838-7876-0697</strong>
+                    </p>
+                    <p>
+                        Mohon sebutkan posisi yang Anda lamar di subjek email. Kami akan menghubungi kandidat yang memenuhi syarat untuk proses seleksi lebih lanjut.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-full">
+            <div class="page-header-img">
+                <div class="container">
+                    <h1>Hubungi Kami</h1>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+                <p style="font-size: 1.15rem; text-align: center; max-width: 900px; margin: auto; margin-bottom: 80px;">
+                    Kami siap membantu kebutuhan manufaktur elektronik Anda. Jangan ragu untuk menghubungi kami melalui telepon, email, atau kunjungi kantor kami. Tim ahli kami akan dengan senang hati menjawab pertanyaan Anda dan memberikan solusi terbaik.
+                </p>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Informasi Kontak</h3>
+                        <div class="icon-text">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3059/3059535.png" alt="phone icon">
+                            <p><strong>Telepon:</strong> +62 838 7876 0697</p>
+                        </div>
+                        <div class="icon-text">
+                            <img src="https://cdn-icons-png.flaticon.com/512/542/542689.png" alt="email icon">
+                            <p><strong>Email:</strong> sinarjayaelectronick@gmail.com</p>
+                        </div>
+                        <div class="icon-text">
+                            <img src="https://cdn-icons-png.flaticon.com/512/123/123136.png" alt="address icon">
+                            <p><strong>Alamat:</strong> Jl Raya Daan Mogot Prima Blok A1 No.8, RT.8/RW.2, Rw. Rawa Buaya, pulonangka, Kecamatan Cengkareng, Kota Jakarta Barat, 11740</p>
+                        </div>
+                        <div class="icon-text">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2838/2838703.png" alt="hours icon">
+                            <p><strong>Jam Kerja:</strong> Senin - Sabtu : 07.00 - 15.00 WIB</p>
+                        </div>
+                    </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq-full">
+            <div class="page-header-img">
+                <div class="container">
+                    <h1>Pertanyaan Sering Diajukan</h1>
+                </div>
+            </div>
+            <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+                <p style="font-size: 1.15rem; text-align: center; max-width: 900px; margin: auto; margin-bottom: 80px;">
+                    Temukan jawaban atas pertanyaan umum tentang layanan, proses, dan perusahaan PT SJE Sinar Jaya Electronick di sini. Jika Anda tidak menemukan jawaban yang Anda cari, jangan ragu untuk menghubungi tim kami melalui halaman Kontak.
+                </p>
+
+                <div class="accordion-container">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Apa itu EMS (Electronic Manufacturing Services)?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                EMS, atau Electronic Manufacturing Services, mengacu pada perusahaan yang merancang, membuat, menguji, mendistribusikan, dan menyediakan layanan pengembalian/perbaikan untuk komponen dan rakitan elektronik atas nama produsen peralatan asli (OEM). PT SJE adalah penyedia layanan EMS penuh.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Layanan apa saja yang ditawarkan PT SJE?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                Kami menawarkan layanan perakitan PCB (SMT & THT), perakitan produk jadi (box build), pengujian dan kontrol kualitas komprehensif, pengembangan prototipe, serta manajemen rantai pasokan global.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Industri apa saja yang Anda layani?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                PT SJE melayani berbagai sektor industri, termasuk telekomunikasi, otomotif, peralatan medis, consumer electronics, IoT, dan aplikasi industri lainnya.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Apa keunggulan kompetitif PT SJE?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                Keunggulan kami meliputi pengalaman lebih dari 25 tahun, fasilitas produksi modern dengan teknologi terkini, tim insinyur dan teknisi yang sangat terampil, komitmen pada kualitas bersertifikat (ISO 9001), dan kemampuan untuk menawarkan solusi fleksibel untuk volume produksi yang berbeda.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Bagaimana PT SJE memastikan kualitas produk?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                Kami menerapkan sistem kontrol kualitas yang ketat di setiap tahap, termasuk inspeksi visual, Automated Optical Inspection (AOI), In-Circuit Test (ICT), Functional Test (FCT), dan pengujian X-ray. Kami juga bersertifikasi ISO 9001:2015.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Apakah Anda menangani proyek prototipe atau volume rendah?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                Ya, kami memiliki fleksibilitas untuk mendukung proyek mulai dari pembuatan prototipe, produksi volume rendah, hingga produksi massal, disesuaikan dengan kebutuhan spesifik klien.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Bagaimana proses untuk mendapatkan penawaran (RFQ)?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                Anda dapat menghubungi tim penjualan kami melalui email atau telepon yang tertera di halaman Kontak. Harap sertakan detail proyek Anda, seperti spesifikasi produk, Bill of Materials (BOM), dan file Gerber, untuk mendapatkan penawaran yang akurat.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Bagaimana PT SJE mengelola rantai pasokan komponen?
+                            <span class="icon">▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                Kami memiliki jaringan pemasok global yang luas dan tim pengadaan yang berpengalaman untuk memastikan ketersediaan komponen yang optimal, harga yang kompetitif, dan mitigasi risiko rantai pasokan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>PT SJE Sinar Jaya Electronick</h4>
+                </div>
+                <div class="footer-col">
+                    <h4>Tautan Cepat</h4>
+                    <ul>
+                        <li><a href="#about-full">Tentang Kami</a></li>
+                        <li><a href="#services-full">Layanan</a></li>
+                        <li><a href="#facilities-full">Fasilitas</a></li>
+                        <li><a href="#careers-full">Karier</a></li>
+                        <li><a href="#contact-full">Kontak</a></li>
+                        <li><a href="#faq-full">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontak Kami</h4>
+                    <p>Jl Raya Daan Mogot Prima Blok A1 No.8, RT.8/RW.2, Rw. Rawa Buaya, pulonangka Kecamatan Cengkareng,<br> Kota Jakarta Barat, 11740</p>
+                    <p>Telepon: +62 838 7876 0697</p>
+                    <p>Email: sinarjayaelectronick@gmail.com</p>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2015 PT SJE Sinar Jaya Electronick. Semua Hak Dilindungi Undang-Undang.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    // Hanya lakukan smooth scroll jika href dimulai dengan '#' (internal link)
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) {
+                            // Hitung offset agar header tidak menutupi bagian atas section
+                            const headerOffset = document.querySelector('header').offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth"
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Intersection Observer for active navigation links (ScrollSpy-like behavior)
+            const sections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('nav a');
+            const headerHeight = document.querySelector('header').offsetHeight;
+
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: `-${headerHeight}px 0px -50% 0px`, // Adjust active section based on header height and mid-viewport
+                threshold: 0 // As soon as target enters/leaves root
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.id;
+                    const correspondingLink = document.querySelector(`nav a[href="#${id}"]`);
+
+                    if (correspondingLink) {
+                        if (entry.isIntersecting) {
+                            // Remove 'active' from all links first
+                            navLinks.forEach(link => link.classList.remove('active'));
+                            // Add 'active' to the current section's link
+                            correspondingLink.classList.add('active');
+                        }
+                        // Optionally, you might want to remove active class when not intersecting
+                        // But a better approach is to ensure only one is active.
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Tambahan: Atur link 'Beranda' aktif saat halaman dimuat atau di bagian paling atas
+            const firstSectionLink = document.querySelector('nav a[href="#hero"]');
+            if (firstSectionLink) {
+                // Atur 'Beranda' aktif secara default saat load
+                firstSectionLink.classList.add('active'); 
+            }
+            // Hapus 'active' jika tidak di paling atas dan section lain sudah aktif
+            window.addEventListener('scroll', () => {
+                if (window.scrollY === 0) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    if (firstSectionLink) firstSectionLink.classList.add('active');
+                }
+            });
+
+
+            // Accordion functionality for FAQ
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const accordionItem = header.closest('.accordion-item');
+                    accordionItem.classList.toggle('active');
+
+                    // Close other open accordions if desired (optional)
+                    accordionHeaders.forEach(otherHeader => {
+                        const otherItem = otherHeader.closest('.accordion-item');
+                        if (otherItem !== accordionItem && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+         
